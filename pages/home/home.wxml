@@ -1,0 +1,32 @@
+<!--pages/home/home.wxml-->
+<view class='content-view'>
+    <view class='input-view'>
+      <image class='title-img' src='../../images/title_icon.png'></image>
+      <!-- <image class='def-img' src='../../images/def_head.png'></image> -->
+      
+      <view class='head-bg'>
+          <view class='bg-img'>
+            <open-data type="userAvatarUrl"></open-data>
+          </view>
+          <view class='head-view'>
+            <open-data type="userAvatarUrl"></open-data>
+          </view>
+          <image class='surname-txt' src='../../images/surname_txt_icon.png'></image>
+      </view>
+      
+      <text class='pre-txt'>预览图</text>
+      <input type='text' bindinput='inputSurname' maxlength='2' class='input-txt' placeholder-class='input-place' placeholder='请输入你的姓氏'></input>
+      <view class='create-view'>
+        <image class='create-img' src='../../images/create_btn.png'></image>
+        <button class='create-btn' open-type='getUserInfo' bindgetuserinfo='onGotUserInfo'>一键生成</button>
+      </view>
+    </view>
+
+    <view class='float-view'>
+      <view class="float-view-wrapper">
+        <image class='float-iamge' src='{{floatImg}}' mode='widthFix' bindtap='newApp'></image>
+        
+        <navigator class="nav-view" wx:if='{{is_nav && isUse}}' target="miniProgram" open-type="navigate" app-id="{{app_id}}" path="" extra-data="" version="release"></navigator>
+      </view>
+    </view>
+</view>

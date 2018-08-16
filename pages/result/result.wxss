@@ -1,0 +1,97 @@
+@import "../../utils/bg.wxss";
+
+.content-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.frends-save-view {
+  width: 585rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 70rpx;
+}
+
+.result-img {
+  width: 580rpx;
+  height: 580rpx;
+  margin-top: 105rpx;
+}
+
+.friends-view {
+  width: 290rpx;
+  height: 102rpx;
+  position: relative;
+}
+
+.friends-img {
+  width: 290rpx;
+  height: 102rpx;
+}
+
+.friends-btn {
+  width: 290rpx;
+  height: 102rpx;
+  line-height: 94rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fff;
+  font-size: 32rpx;
+  background: rgba(255, 255, 255, 0);
+}
+
+.save-view {
+  width: 290rpx;
+  height: 102rpx;
+  position: relative;
+}
+
+.save-img {
+  width: 290rpx;
+  height: 102rpx;
+}
+
+.save-btn {
+  width: 290rpx;
+  height: 102rpx;
+  line-height: 94rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fff;
+  font-size: 32rpx;
+  background: rgba(255, 255, 255, 0);
+}
+
+button, button::after {
+  border: 0;
+}
+
+.create-view {
+  width: 590rpx;
+  height: 102rpx;
+  position: relative;
+  margin-top: 30rpx;
+}
+
+.create-img {
+  width: 590rpx;
+  height: 102rpx;
+}
+
+.create-btn {
+  width: 590rpx;
+  height: 102rpx;
+  line-height: 94rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fff;
+  font-size: 32rpx;
+  background: rgba(255, 255, 255, 0);
+}

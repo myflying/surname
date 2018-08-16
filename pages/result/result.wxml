@@ -1,0 +1,17 @@
+<view class='content-view'>
+  <image class='result-img' src='{{result_path}}' bindtap='preimage'></image>
+  <view class='frends-save-view'>
+    <view class='friends-view'>
+      <image class='friends-img' src='../../images/friends_icon.png'></image>
+      <button class='friends-btn' open-type='share'>发送好友</button>
+    </view>
+    <view class='save-view'>
+      <image class='save-img' src='../../images/save_icon.png'></image>
+      <button class='save-btn' bindtap='saveImg'>保存手机</button>
+    </view>
+  </view>
+  <view class='create-view'>
+      <image class='create-img' src='../../images/my_create_icon.png'></image>
+      <button class='create-btn' bindtap='create'>我也要制作</button>
+    </view>
+</view>
