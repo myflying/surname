@@ -1,4 +1,6 @@
 // pages/home/home.js
+const common = require('../../utils/common.js')
+
 var user_head_url
 var user_input_surname
 var share_img
@@ -106,15 +108,18 @@ Page({
     }
   },
   create: function() {
-
+    console.log(user_head_url)
+    let data = {
+      'app_id': 35,
+      'xing': user_input_surname,
+      'headimg': user_head_url,
+    }
+    let header = common.gethead(data)
     wx.request({
-      url: 'https://cj.198254.com/api/water/init',
+      url: 'https://cj.198254.com/api/v1.water/init',
       method: 'POST',
-      data: {
-        'app_id': 35,
-        'xing': user_input_surname,
-        'headimg': user_head_url,
-      },
+      header: header,
+      data: data,
       success: function(res) {
         console.log(res.data)
         wx.hideLoading()
@@ -140,6 +145,7 @@ Page({
   },
 
   onGotUserInfo: function(e) {
+    
     var that = this
     if (!user_input_surname) {
       wx.showToast({
@@ -153,34 +159,76 @@ Page({
       key: 'user_info',
       success: function(res) {
         var userInfo = res.data
-        user_head_url = userInfo.avatarUrl
+        console.log(userInfo)
+        user_head_url = userInfo.face
         wx.showLoading({
           title: '正在制作中',
         })
-        that.create()
+        
+        if(wx.getStorageSync('token')){
+          that.create()
+        }else{
+          that.getLoginUserInfo();
+        }
       },
       fail: function(res) {
+        that.getLoginUserInfo();
+      }
+    })
+  },
 
-        wx.login({
-          success: function(res) {
-            wx.getUserInfo({
-              lang: "zh_CN",
-              success: function(userRes) {
-                console.log("用户已授权")
-                console.log(userRes.userInfo)
-                if (null != userRes && null != userRes.userInfo) {
-                  user_head_url = userRes.userInfo.avatarUrl
-                  wx.setStorage({
-                    key: 'user_info',
-                    data: userRes.userInfo
-                  })
-                  wx.showLoading({
-                    title: '正在制作中',
-                  })
-                  that.create()
-                }
+  getLoginUserInfo:function(){
+    var that = this
+    wx.login({
+      success: function (res) {
+        wx.getUserInfo({
+          lang: "zh_CN",
+          success: function (userRes) {
+            console.log("用户已授权")
+            console.log(userRes.userInfo)
+            if (null != userRes && null != userRes.userInfo) {
+              user_head_url = userRes.userInfo.avatarUrl
+              wx.setStorage({
+                key: 'user_info',
+                data: userRes.userInfo
+              })
+              wx.showLoading({
+                title: '正在制作中',
+              })
+
+              //获取用户的encryptedData，向服务器发起注册
+              let url = "https://cj.198254.com/api/v1.user/login"
+              let data = {
+                code: res.code,
+                encryptedData: userRes.encryptedData,
+                iv: userRes.iv,
+                app_type: 'wx',
+                app_id: 35
               }
-            })
+              let header = common.gethead(data)
+              wx.request({
+                url: url,
+                //注册
+                data: data,
+                method: 'POST',
+                header: header,
+                success: function (result) {
+                  wx.hideLoading()
+                  wx.setStorageSync('user_info', result.data.data)
+                  console.log(result.data)
+                  saveToken(result.data.data.token.token) //缓存token
+
+                  that.setData({
+                    is_login: true
+                  })
+
+                  that.create()
+                },
+                fail: function (res) {
+
+                },
+              })
+            }
           }
         })
       }
@@ -193,7 +241,12 @@ Page({
     return {
       title: share_title || '@你快来制作属于你的姓氏头像吧!',
       path: '/pages/home/home',
-      imageUrl: share_img
+      imageUrl: share_img,
+      success:function(e){
+        console.log('share success')
+      },fail:function(e){
+        console.log('share fail')
+      }
     }
   },
   compareVersion: function (v1, v2) {
@@ -222,3 +275,7 @@ Page({
     return 0
   }
 })
+
+function saveToken(token) {
+  wx.setStorageSync('token', token)
+}

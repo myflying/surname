@@ -20,6 +20,7 @@
         <image class='create-img' src='../../images/create_btn.png'></image>
         <button class='create-btn' open-type='getUserInfo' bindgetuserinfo='onGotUserInfo'>一键生成</button>
       </view>
+      <view class='ad'><ad unit-id="adunit-0d64becc4385a66c"class="ad-show"></ad></view>
     </view>
 
     <view class='float-view'>

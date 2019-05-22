@@ -13,5 +13,6 @@
   <view class='create-view'>
       <image class='create-img' src='../../images/my_create_icon.png'></image>
       <button class='create-btn' bindtap='create'>我也要制作</button>
-    </view>
+  </view>
 </view>
+<view class='ad'><ad unit-id="adunit-aed699d3b3470b60"class="ad-show"></ad></view>
